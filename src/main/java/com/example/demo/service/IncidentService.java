@@ -8,6 +8,8 @@ import com.example.demo.repository.IncidentRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+
 @Service
 public class IncidentService {
     private final IncidentRepository repository;
@@ -29,10 +31,20 @@ public class IncidentService {
     public IncidentEntityDTO updateIncident(Long idIncident, UpdateIncidentDTO request) {
         Incident incident = this.repository
                 .findById(idIncident)
-                .orElseThrow();
+                .orElseThrow(RuntimeException::new);
 
         BeanUtils.copyProperties(request, incident);
 
         return new IncidentEntityDTO(incident);
+    }
+
+    public void deleteIncident(Long id) {
+        Incident incident = this.repository
+                .findById(id)
+                .orElseThrow(RuntimeException::new);
+
+        incident.setClosedAt(LocalDateTime.now());
+
+        this.repository.save(incident);
     }
 }

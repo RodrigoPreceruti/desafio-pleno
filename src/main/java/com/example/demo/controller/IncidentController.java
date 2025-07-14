@@ -35,4 +35,11 @@ public class IncidentController {
     public ResponseEntity<IncidentEntityDTO> updateEntity(@PathVariable Long id, @RequestBody UpdateIncidentDTO request) {
         return ResponseEntity.ok(this.service.updateIncident(id, request));
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteIncident(@PathVariable Long id) {
+        this.service.deleteIncident(id);
+
+        return ResponseEntity.noContent().build();
+    }
 }
