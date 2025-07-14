@@ -28,7 +28,6 @@ public class Incident {
     @CreationTimestamp
     private LocalDateTime createdAt;
 
-    @UpdateTimestamp
     private LocalDateTime updatedAt;
 
     private LocalDateTime closedAt;

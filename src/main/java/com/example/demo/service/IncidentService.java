@@ -39,6 +39,10 @@ public class IncidentService {
 
         BeanUtils.copyProperties(request, incident);
 
+        incident.setUpdatedAt(LocalDateTime.now());
+
+        this.repository.save(incident);
+
         return new IncidentEntityDTO(incident);
     }
 
