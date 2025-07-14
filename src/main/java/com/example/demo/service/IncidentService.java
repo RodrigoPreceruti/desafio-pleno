@@ -65,4 +65,12 @@ public class IncidentService {
 
         return new PageImpl<>(incidentEntity, pageable, incidents.getTotalElements());
     }
+
+    public IncidentEntityDTO getIncidentById(Long id) {
+        Incident incident = this.repository
+                .findById(id)
+                .orElseThrow();
+
+        return new IncidentEntityDTO(incident);
+    }
 }

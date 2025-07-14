@@ -55,4 +55,9 @@ public class IncidentController {
 
         return ResponseEntity.ok(this.service.getAllIncidents(pageable));
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<IncidentEntityDTO> getIncidentById(@PathVariable Long id) {
+        return ResponseEntity.ok(this.service.getIncidentById(id));
+    }
 }
