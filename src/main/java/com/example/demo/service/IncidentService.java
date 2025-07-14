@@ -6,9 +6,13 @@ import com.example.demo.dto.UpdateIncidentDTO;
 import com.example.demo.entity.Incident;
 import com.example.demo.repository.IncidentRepository;
 import org.springframework.beans.BeanUtils;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 public class IncidentService {
@@ -46,5 +50,15 @@ public class IncidentService {
         incident.setClosedAt(LocalDateTime.now());
 
         this.repository.save(incident);
+    }
+
+    public Page<IncidentEntityDTO> getAllIncidents(Pageable pageable) {
+        Page<Incident> incidents = this.repository.findAll(pageable);
+
+        List<IncidentEntityDTO> incidentEntity = incidents.stream()
+                .map(IncidentEntityDTO::new)
+                .toList();
+
+        return new PageImpl<>(incidentEntity, pageable, incidents.getTotalElements());
     }
 }

@@ -4,6 +4,9 @@ import com.example.demo.dto.CreateIncidentDTO;
 import com.example.demo.dto.IncidentEntityDTO;
 import com.example.demo.dto.UpdateIncidentDTO;
 import com.example.demo.service.IncidentService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -41,5 +44,15 @@ public class IncidentController {
         this.service.deleteIncident(id);
 
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping
+    public ResponseEntity<Page<IncidentEntityDTO>> getAllIncidents(
+            @RequestParam(defaultValue = "0") Integer page,
+            @RequestParam(defaultValue = "10") Integer size
+    ) {
+        Pageable pageable = PageRequest.of(page, size);
+
+        return ResponseEntity.ok(this.service.getAllIncidents(pageable));
     }
 }
