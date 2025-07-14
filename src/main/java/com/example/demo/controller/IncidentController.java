@@ -60,4 +60,9 @@ public class IncidentController {
     public ResponseEntity<IncidentEntityDTO> getIncidentById(@PathVariable Long id) {
         return ResponseEntity.ok(this.service.getIncidentById(id));
     }
+
+    @GetMapping("/ordered")
+    public ResponseEntity<Page<IncidentEntityDTO>> getOrderedIncidents() {
+        return ResponseEntity.ok(this.service.getOrderedIncidents());
+    }
 }

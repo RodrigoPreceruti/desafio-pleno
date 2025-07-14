@@ -6,9 +6,7 @@ import com.example.demo.dto.UpdateIncidentDTO;
 import com.example.demo.entity.Incident;
 import com.example.demo.repository.IncidentRepository;
 import org.springframework.beans.BeanUtils;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -72,5 +70,17 @@ public class IncidentService {
                 .orElseThrow();
 
         return new IncidentEntityDTO(incident);
+    }
+
+    public Page<IncidentEntityDTO> getOrderedIncidents() {
+        Pageable pageable = PageRequest.of(0, 20, Sort.by("createdAt").descending());
+
+        Page<Incident> incidents = this.repository.findAll(pageable);
+
+        List<IncidentEntityDTO> incidentEntity = incidents.stream()
+                .map(IncidentEntityDTO::new)
+                .toList();
+
+        return new PageImpl<>(incidentEntity, pageable, incidents.getTotalElements());
     }
 }
