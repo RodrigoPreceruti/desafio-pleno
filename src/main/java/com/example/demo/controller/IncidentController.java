@@ -2,12 +2,10 @@ package com.example.demo.controller;
 
 import com.example.demo.dto.CreateIncidentDTO;
 import com.example.demo.dto.IncidentEntityDTO;
+import com.example.demo.dto.UpdateIncidentDTO;
 import com.example.demo.service.IncidentService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
@@ -31,5 +29,10 @@ public class IncidentController {
                 .toUri();
 
         return ResponseEntity.created(uri).body(incident);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<IncidentEntityDTO> updateEntity(@PathVariable Long id, @RequestBody UpdateIncidentDTO request) {
+        return ResponseEntity.ok(this.service.updateIncident(id, request));
     }
 }
