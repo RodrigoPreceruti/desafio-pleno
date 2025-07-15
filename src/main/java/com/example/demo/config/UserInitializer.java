@@ -10,16 +10,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Configuration
 public class UserInitializer {
-    private final UserRepository repository;
-
-    public UserInitializer(UserRepository repository) {
-        this.repository = repository;
-    }
-
     @Bean
     public CommandLineRunner initAdminUser(UserRepository userRepository) {
         return args -> {
-            if (this.repository.findOptionalByLogin("admin").isEmpty()) {
+            if (userRepository.findOptionalByLogin("admin").isEmpty()) {
                 User user = new User();
                 user.setLogin("admin");
                 user.setPassword(new BCryptPasswordEncoder().encode("123456"));
