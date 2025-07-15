@@ -4,6 +4,7 @@ import com.example.demo.dto.CreateIncidentDTO;
 import com.example.demo.dto.IncidentEntityDTO;
 import com.example.demo.dto.UpdateIncidentDTO;
 import com.example.demo.entity.Incident;
+import com.example.demo.exception.custom.IncidentNotFoundException;
 import com.example.demo.repository.IncidentRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.*;
@@ -33,7 +34,7 @@ public class IncidentService {
     public IncidentEntityDTO updateIncident(Long idIncident, UpdateIncidentDTO request) {
         Incident incident = this.repository
                 .findById(idIncident)
-                .orElseThrow(RuntimeException::new);
+                .orElseThrow(() -> new IncidentNotFoundException("Incident not found"));
 
         BeanUtils.copyProperties(request, incident);
 
@@ -47,7 +48,7 @@ public class IncidentService {
     public void deleteIncident(Long id) {
         Incident incident = this.repository
                 .findById(id)
-                .orElseThrow(RuntimeException::new);
+                .orElseThrow(() -> new IncidentNotFoundException("Incident not found"));
 
         incident.setClosedAt(LocalDateTime.now());
 
