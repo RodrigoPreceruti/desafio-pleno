@@ -1,5 +1,7 @@
 # Incident Management API
 
+> **Important:** This project requires **JDK 21**. Make sure you have JDK 21 installed and set the `JAVA_PATH` environment variable to your JDK 21 installation path (e.g., `C:\Program Files\Java\jdk-21\bin`) before building or running the project.
+
 A Spring Boot RESTful API for managing incidents and users, featuring JWT authentication, role-based access control, and OpenAPI documentation. Designed for extensibility and ease of deployment.
 
 ---
@@ -59,8 +61,14 @@ This project provides a backend API for incident management, supporting user reg
 ## Getting Started
 
 ### Prerequisites
-- Java 21+
+- Java 21+ (**JDK 21 required**)
 - Maven 3.9+
+
+**Set JAVA_PATH environment variable:**
+- On Windows, set `JAVA_PATH` to your JDK 21 `bin` directory (e.g., `C:\Program Files\Java\jdk-21\bin`).
+- On Linux/macOS, set `JAVA_PATH` to your JDK 21 `bin` directory (e.g., `/usr/lib/jvm/java-21-openjdk/bin`).
+
+Ensure your `JAVA_PATH` is correctly set before proceeding.
 
 ### Clone the repository
 ```bash
